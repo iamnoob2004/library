@@ -2,6 +2,7 @@
 
 // arbitrary modint
 // stores x*(2^32) mod p
+// https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod
 template<int id> // support multiple modulos at the same time
 struct montgomery_modint{
     using u32=uint32_t;

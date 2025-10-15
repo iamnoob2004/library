@@ -2,6 +2,7 @@
 
 template<int p>
 struct modint{
+    using mint=modint;
     using u32=uint32_t;
 
     int x;
@@ -19,7 +20,7 @@ struct modint{
         return *this;
     }
     mint operator *= (const mint &o){
-        x=((long long)x)*o.x%p;
+        x=((int64_t)x)*o.x%p;
         return *this;
     }
     mint operator /= (const mint &o){
@@ -41,10 +42,10 @@ struct modint{
     }
 
     bool operator == (const mint &o) const {
-        return (x>=p?x-p:x)==(o.x>=p?o.x-p:x);
+        return x==o.x;
     }
     bool operator != (const mint &o) const {
-        return (x>=p?x-p:x)!=(o.x>=p?o.x-p:x);
+        return x!=o.x;
     }
 
     friend istream& operator >> (istream& is, mint &b){
