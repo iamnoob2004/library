@@ -5,6 +5,10 @@ struct modint{
     using mint=modint;
     using u32=uint32_t;
 
+    static int get_mod(){
+        return p;
+    }
+
     int x;
     modint():x(0){}
     modint(int64_t _x):x((_x%p+p)%p){}
