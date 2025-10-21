@@ -52,3 +52,22 @@ vector<pair<ll,int>> factorize(ll n){
     }
     return res;
 }
+
+vector<ll> find_all_divisors(ll n){
+    vector<pair<ll,int>> vec=factorize(n);
+    vector<ll> res;
+    auto dfs=[&](auto &self, int i, ll cur){
+        if(i==(int)vec.size()){
+            res.pb(cur);
+            return;
+        }
+        for(int j=0; j<vec[i].second; ++j){
+            self(self,i+1,cur);
+            cur*=vec[i].first;
+        }
+        self(self,i+1,cur);
+    };
+    dfs(dfs,0,1);
+    sort(res.begin(),res.end());
+    return res;
+}
