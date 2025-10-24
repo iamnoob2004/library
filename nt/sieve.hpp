@@ -31,7 +31,7 @@ struct sieve{
     int divisor_sum(int n){
         vector<int> vec=factorize(n);
         int res=1,cur=1,q;
-        for(int i=0; i<vec.size(); ++i){
+        for(int i=0; i<(int)vec.size(); ++i){
             if(i==0||vec[i]!=vec[i-1]) res*=cur,cur=vec[i]+1,q=vec[i];
             else q*=vec[i],cur+=q;
         }
@@ -41,7 +41,7 @@ struct sieve{
     int totient(int n){
         vector<int> vec=factorize(n);
         int res=n;
-        for(int i=0; i<vec.size(); ++i){
+        for(int i=0; i<(int)vec.size(); ++i){
             if(i==0||vec[i]!=vec[i-1]) res=res/vec[i]*(vec[i]-1);
         }
         return res;

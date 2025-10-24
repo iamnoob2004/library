@@ -34,3 +34,13 @@ mint C(int n, int m){
     if(m<0||m>n) return 0;
     return fac<mint>(n)*ifac<mint>(m)*ifac<mint>(n-m);
 }
+
+template<typename mint>
+mint stars_and_bars(int n, int m){
+    if(n<0||m<0) return 0;
+    if(n==0){
+        if(m==0) return 1;
+        return 0;
+    }
+    return C<mint>(m+n-1,n-1);
+}
