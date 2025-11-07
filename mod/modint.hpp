@@ -72,4 +72,10 @@ struct modint{
     friend ostream& operator << (ostream& os, const mint &b){
         return os << b.x;
     }
+
+    // v2(m-1), 2^(v2(m-1))-th root
+    static constexpr pair<int,int> ntt_data(){
+        if(m==998244353) return {23,31};
+        return {-1,-1};
+    }
 };
