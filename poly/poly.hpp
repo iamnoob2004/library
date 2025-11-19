@@ -82,4 +82,118 @@ struct poly: vector<mint>{
         for(int i=0; i<n; ++i) res[i+1]=(*this)[i]*(inv<mint>(i+1));
         return res;
     }
+
+    poly ln(){
+        // a[0] = 1
+        int n=this->size();
+        if(n==1) return poly();
+        poly d=derivative();
+        poly b=*this;
+        b.pop_back();
+        poly res=d*b.inverse();
+        res.resize(n-1);
+        return res.integral();
+    }
+
+    poly exp(){
+        // a[0] = 0
+        int n=this->size();
+        poly q(1,1);
+        poly b=*this;
+        b[0]+=1;
+        for(int m=1; m<n; m<<=1){
+            if(n<m*2) b.resize(m*2);
+            poly g=b.interval(0,m*2),h=q;
+            h.resize(m*2),h=h.ln();
+            g-=h;
+            q*=g;
+            q.resize(m*2);
+        }
+        q.resize(n);
+        return q;
+    }
+
+    poly pow_naive(ll k){
+        int n=this->size();
+        poly b=*this,res={1};
+        for(; k; b*=b,k>>=1,b.resize(n)) if(k&1) res*=b,res.resize(n);
+        return res;
+    }
+
+    int low(){
+        int n=this->size(),m=0;
+        while(m<n&&(*this)[m]==0) m++;
+        if(m>=n) return -1;
+        return m;
+    }
+    poly shift(int n){
+        poly res(n,0);
+        res.insert(res.end(),this->begin(),this->end());
+        return res;
+    }
+
+    poly pow(ll k){ // 0^0 = 1
+        int n=this->size();
+        if(k==0){
+            poly res(n);
+            return res[0]=1,res;
+        }
+        int m=low();
+        if(m){
+            if(m==-1||k>=n||k*m>=n) return poly(n);
+            int lft=n-k*m;
+            poly b=interval(m,m+lft);
+            b=b.pow(k);
+            b=b.shift(k*m);
+            return b;
+        }
+        poly b=*this;
+        mint base=b[0].pow(k),inv=b[0].inv();
+        b*=inv;
+        b=b.ln();
+        if(b.empty()) b.pb(0);
+        b*=k;
+        b=b.exp();
+        b*=base;
+        return b;
+    }
+
+    poly pow_sparse(int k, int n){ // 0^0 = 1
+        if(k==0){
+            poly res(n);
+            return res[0]=1,res;
+        }
+        int t=this->size(),m=low();
+        if(m){
+            if(m==-1||k>=n||1ll*k*m>=n) return poly(n);
+            int lft=n-k*m;
+            poly b=interval(m,t);
+            b=b.pow_sparse(k,lft);
+            b=b.shift(k*m);
+            return b;
+        }
+        poly res(n,0);
+        res[0]=(*this)[0].pow(k);
+        mint inv_a0=(*this)[0].inv();
+        for(int i=1; i<n; ++i){
+            for(int j=1; j<t; ++j){
+                if(i-j>=0) res[i]-=res[i-j]*(i-j)*(*this)[j];
+            }
+            for(int j=1; j<t; ++j){
+                if(i-j>=0) res[i]+=res[i-j]*(*this)[j]*j*k;
+            }
+            res[i]*=inv_a0*inv<mint>(i);
+        }
+        return res;
+    }
+
+    friend ostream& operator << (ostream& os, const poly &P){
+        int n=P.size();
+        for(int i=0; i<n; ++i){
+            os << P[i];
+            if(i+1<n) os << ' ';
+        }
+        os << "\n";
+        return os;
+    }
 };
