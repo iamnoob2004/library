@@ -13,3 +13,11 @@ array<T,3> extgcd(T a, T b){
     }
     return {a,x1,y1};
 }
+
+template<typename T>
+T modinv(T x, T m){
+    auto [g,val1,val2]=extgcd<T>(x,m);
+    assert(g==1);
+    if(val1<0) val1+=m;
+    return val1;
+}
