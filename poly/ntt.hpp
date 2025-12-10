@@ -3,7 +3,6 @@
 template<typename mint>
 struct NTT{
     static constexpr int m=mint::get_mod(),N=mint::ntt_data().first,g=mint::ntt_data().second;
-    static_assert(N>=0);
 
     mint w[N+1];
 

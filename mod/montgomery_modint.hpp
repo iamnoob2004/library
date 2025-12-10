@@ -98,6 +98,11 @@ struct montgomery_modint{
     friend ostream& operator << (ostream& os, const mint &b){
         return os << b.get();
     }
+
+    static constexpr pair<int,int> ntt_data(){
+        if(m==998244353) return {23,31};
+        return {-1,-1};
+    }
 };
 
 template<int id, bool is_prime> using montgomery_modint_32=montgomery_modint<id,is_prime,32,uint32_t,uint64_t,int32_t>;

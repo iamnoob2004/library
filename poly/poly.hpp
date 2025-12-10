@@ -1,6 +1,5 @@
 #pragma once
 
-#include "library/mod/modint.hpp"
 #include "library/mod/modint_basic.hpp"
 #include "library/poly/convolution.hpp"
 
