@@ -100,7 +100,6 @@ struct montgomery_modint{
     }
 
     static constexpr pair<int,int> ntt_data(){
-        if(m==998244353) return {23,31};
         return {-1,-1};
     }
 };
