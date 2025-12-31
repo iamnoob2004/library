@@ -2,18 +2,17 @@
 
 #include "library/nt/extgcd.hpp"
 
-template<int m,bool is_prime=true>
-struct modint{
-    using mint=modint;
-    using u32=uint32_t;
+template<int64_t m, bool is_prime, typename word, typename dword>
+struct Modint{
+    using mint=Modint;
 
-    static int get_mod(){
+    static word get_mod(){
         return m;
     }
 
-    int x;
-    modint():x(0){}
-    modint(int64_t _x):x((_x%m+m)%m){}
+    word x;
+    Modint():x(0){}
+    Modint(int64_t _x):x((_x%m+m)%m){}
 
     mint operator += (const mint &o){
         x+=o.x;
@@ -26,7 +25,7 @@ struct modint{
         return *this;
     }
     mint operator *= (const mint &o){
-        x=((int64_t)x)*o.x%m;
+        x=((dword)x)*o.x%m;
         return *this;
     }
     mint operator /= (const mint &o){
@@ -47,7 +46,7 @@ struct modint{
         return pow(m-2);
     }
     inline mint inv2() const {
-        auto [g,val1,val2]=extgcd<int>(x,m);
+        auto [g,val1,val2]=extgcd<word>(x,m);
         assert(g==1);
         return mint(val1);
     }
@@ -79,3 +78,6 @@ struct modint{
         return {-1,-1};
     }
 };
+
+template<int64_t m, bool is_prime=true> using modint=Modint<m,is_prime,int32_t,int64_t>;
+template<int64_t m, bool is_prime=true> using modint_64=Modint<m,is_prime,int64_t,__int128>;

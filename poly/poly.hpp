@@ -85,7 +85,7 @@ struct poly: vector<mint>{
     poly ln(){
         // a[0] = 1
         int n=this->size();
-        if(n==1) return poly();
+        if(n==1) return poly({0});
         poly d=derivative();
         poly b=*this;
         b.pop_back();
