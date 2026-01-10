@@ -32,6 +32,6 @@ template<typename mint>
 vector<mint> convolution(vector<mint> a, vector<mint> b){
     if(a.empty()||b.empty()) return {};
     int n=((int)a.size())+((int)b.size())-1;
-    if(mint::ntt_data().first<0||n<49) return convolution_naive(a,b);
+    if(mint::ntt_data().first<0||n<49||min((int)a.size(),(int)b.size())<=5) return convolution_naive(a,b);
     return convolution_ntt(a,b);
 }

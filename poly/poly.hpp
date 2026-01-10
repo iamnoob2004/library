@@ -43,6 +43,8 @@ struct poly: vector<mint>{
     poly operator * (const poly &o) const {return poly(*this)*=o;}
     poly operator * (const mint &o) const {return poly(*this)*=o;}
 
+    poly operator - () const {return poly()-*this;}
+
     poly interval(int l, int r){
         assert(l<=r&&r<=(int)this->size());
         poly res(this->begin()+l,this->begin()+r);
