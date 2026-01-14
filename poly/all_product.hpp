@@ -2,6 +2,7 @@
 
 template<typename poly>
 poly all_product(vector<poly> vec){
+	if(vec.empty()) return poly({1});
     auto dfs=[&](auto &self, int l, int r) -> poly{
         if(l+1==r) return vec[l];
         int mid=(l+r)>>1;
