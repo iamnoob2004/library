@@ -9,6 +9,7 @@ struct dynamic_bitset{
     void init(int _n){
         m=((_n+63)>>6);
         n=m<<6;
+        vec.reserve(m);
         vec.assign(m,0);
     }
     dynamic_bitset(int _n=0){
@@ -83,6 +84,33 @@ struct dynamic_bitset{
             if(i+1<m) vec[i]|=vec[i+1]<<(64-k);
         }
         return *this;
+    }
+
+    int find_next(int i){ // >= i
+        u64 x=vec[i>>6]>>(i&63);
+        if(x){
+            return __builtin_ctzll(x)+i;
+        }
+        for(int j=(i>>6)+1; j<m; ++j) if(vec[j]){
+            return __builtin_ctzll(vec[j])+(j<<6);
+        }
+        return n;
+    }
+    int find_prev(int i){ // <= i
+        u64 x=vec[i>>6]<<(63-(i&63));
+        if(x){
+            return i-__builtin_clzll(x);
+        }
+        for(int j=(i>>6)-1; j>=0; --j) if(vec[j]){
+            return (j<<6)+63-__builtin_clzll(vec[j]);
+        }
+        return -1;
+    }
+    int find_first(){
+        return find_next(0);
+    }
+    int find_last(){
+        return find_prev(n-1);
     }
 
     int count(){
