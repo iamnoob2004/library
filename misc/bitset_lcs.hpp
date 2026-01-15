@@ -69,6 +69,6 @@ vector<int> bitset_lcs_recover(vector<int> a, vector<int> b, int mx){
         }
     }
     reverse(lcs.begin(),lcs.end());
-    assert(ans_len==lcs.size());
+    assert(ans_len==(int)lcs.size());
     return lcs;
 }
