@@ -82,7 +82,7 @@ struct poly: vector<mint>{
         poly a=*this;
         int n=a.size(),m=b.size(),k=n-m+1;
         if(n<m) return {poly({0}),a};
-        if(mint::ntt_data().first<0||m<=50){
+        if(mint::ntt_data().first<0||min(m,k)<=50){
             poly q(k),r;
             mint tmp=b[m-1].inv();
             for(int i=k-1; i>=0; --i){
