@@ -51,6 +51,13 @@ struct poly: vector<mint>{
         return res;
     }
 
+    poly topos(){
+        while((this->size())&&(this->back())==mint(0)){
+            this->pop_back();
+        }
+        return *this;
+    }
+
     poly inverse(){
         int n=this->size();
         assert((*this)[0]!=0);
@@ -68,6 +75,36 @@ struct poly: vector<mint>{
         }
         res.resize(n);
         return res;
+    }
+
+    pair<poly,poly> divide(poly b){
+        // return {quotient, remainder}
+        poly a=*this;
+        int n=a.size(),m=b.size(),k=n-m+1;
+        if(n<m) return {poly({0}),a};
+        if(mint::ntt_data().first<0||m<=50){
+            poly q(k),r;
+            mint tmp=b[m-1].inv();
+            for(int i=k-1; i>=0; --i){
+                q[i]=a[m-1+i]*tmp;
+                for(int j=0; j<m; ++j){
+                    a[i+j]-=q[i]*b[j];
+                }
+                assert(a[m-1+i]==mint(0));
+            }
+            a.resize(m-1);
+            r=a;
+            return {q,r};
+        }
+        poly ra=a,rb=b;
+        reverse(all(ra)),reverse(all(rb));
+        ra.resize(k),rb.resize(k);
+        poly q=ra*rb.inverse();
+        q.resize(k);
+        reverse(all(q));
+        poly r=a-b*q;
+        r.resize(m-1);
+        return {q,r};
     }
 
     poly derivative(){
@@ -194,7 +231,6 @@ struct poly: vector<mint>{
             os << P[i];
             if(i+1<n) os << ' ';
         }
-        os << "\n";
         return os;
     }
 };
