@@ -6,29 +6,31 @@ template<int64_t m, bool is_prime, typename word, typename dword>
 struct Modint{
     using mint=Modint;
 
-    static word get_mod(){
-        return m;
+    static constexpr word mod=m;
+
+    static constexpr word get_mod(){
+        return mod;
     }
 
     word x;
-    Modint():x(0){}
-    Modint(int64_t _x):x((_x%m+m)%m){}
+    constexpr Modint():x(0){}
+    constexpr Modint(int _x):x((_x%m+m)%m){}
+    constexpr Modint(int64_t _x):x((_x%m+m)%m){}
+    constexpr Modint(uint64_t _x):x(_x%m){}
 
-    mint operator += (const mint &o){
-        x+=o.x;
-        if(x>=m) x-=m;
+    mint &operator += (const mint &o){
+        if((x+=o.x)>=mod) x-=mod;
         return *this;
     }
-    mint operator -= (const mint &o){
-        x-=o.x;
-        if(x<0) x+=m;
+    mint &operator -= (const mint &o){
+        if((x-=o.x)<0) x+=mod;
         return *this;
     }
-    mint operator *= (const mint &o){
-        x=((dword)x)*o.x%m;
+    mint &operator *= (const mint &o){
+        x=((dword)x)*o.x%mod;
         return *this;
     }
-    mint operator /= (const mint &o){
+    mint &operator /= (const mint &o){
         return (*this)*=o.inv();
     }
     mint operator + (const mint &o) const {return mint(*this)+=o;}
@@ -46,7 +48,7 @@ struct Modint{
         return pow(m-2);
     }
     inline mint inv2() const {
-        auto [g,val1,val2]=extgcd<word>(x,m);
+        auto [g,val1,val2]=extgcd<word>(x,mod);
         assert(g==1);
         return mint(val1);
     }

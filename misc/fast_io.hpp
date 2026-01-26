@@ -3,7 +3,7 @@
 struct fast_io{
     static const int M=1<<15;
     char buf[M],*p=buf,*q=buf;
-    char readchar(){
+    inline char readchar(){
         if(p==q&&(q=(p=buf)+fread(buf,1,M,stdin))==buf) return EOF;
         else return *p++;
     }
@@ -48,6 +48,7 @@ struct fast_io{
         if(x<0) writechar('-'),x*=-1;
         if(x==0){
             writechar('0');
+            if(end) writechar(end);
             return;
         }
         char tmp[14],*ptr=tmp;
@@ -62,6 +63,7 @@ struct fast_io{
         if(x<0) writechar('-'),x*=-1;
         if(x==0){
             writechar('0');
+            if(end) writechar(end);
             return;
         }
         char tmp[25],*ptr=tmp;
