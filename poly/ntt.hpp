@@ -32,50 +32,79 @@ struct NTT{
     void trans(vector<mint> &a, int k, bool inv=false){
         assert((int)a.size()==(1<<k));
         int n=1<<k;
-        int len=0;
-        while(len<k){
-            if(k-len==1){
-                int p=1<<(k-len-1);
-                mint rot=1;
-                for(int s=0; s<(1<<len); ++s){
-                    int offset=s<<(k-len);
-                    for(int i=0; i<p; ++i){
-                        mint l=a[i+offset],r=a[i+offset+p]*rot;
-                        a[i+offset]+=r,a[i+offset+p]=l-r;
+        if(!inv){
+            int len=0;
+            while(len<k){
+                if(k-len==1){
+                    int p=1<<(k-len-1);
+                    mint rot=1;
+                    for(int s=0; s<(1<<len); ++s){
+                        int offset=s<<(k-len);
+                        for(int i=0; i<p; ++i){
+                            mint l=a[i+offset],r=a[i+offset+p]*rot;
+                            a[i+offset]+=r,a[i+offset+p]=l-r;
+                        }
+                        rot*=w1[0][__lg(~s&-~s)];
                     }
-                    rot*=w1[0][__lg(~s&-~s)];
+                    len++;
                 }
-                len++;
-            }
-            else{
-                int p=1<<(k-len-2);
-                mint rot=1,imag=w[0][2];
-                u64 mod2=((u64)mod)*mod;
-                for(int s=0; s<(1<<len); ++s){
-                    mint rot2=rot*rot,rot3=rot2*rot;
-                    int offset=s<<(k-len);
-                    for(int i=0; i<p; ++i){
-                        u64 a0=a[i+offset].x,a1=u64(a[i+offset+p].x)*rot.x,a2=u64(a[i+offset+2*p].x)*rot2.x,a3=u64(a[i+offset+3*p].x)*rot3.x;
-                        u64 tmp=(a1+mod2-a3)%mod*imag.x;
-                        u64 na2=mod2-a2;
-                        a[i+offset]=a0+a2+a1+a3;
-                        a[i+offset+p]=a0+a2+(2*mod2-(a1+a3));
-                        a[i+offset+2*p]=a0+na2+tmp;
-                        a[i+offset+3*p]=a0+na2+(mod2-tmp);
+                else{
+                    int p=1<<(k-len-2);
+                    mint rot=1,imag=w[0][2];
+                    u64 mod2=((u64)mod)*mod;
+                    for(int s=0; s<(1<<len); ++s){
+                        mint rot2=rot*rot,rot3=rot2*rot;
+                        int offset=s<<(k-len);
+                        for(int i=0; i<p; ++i){
+                            u64 a0=a[i+offset].x,a1=u64(a[i+offset+p].x)*rot.x,a2=u64(a[i+offset+2*p].x)*rot2.x,a3=u64(a[i+offset+3*p].x)*rot3.x;
+                            u64 tmp=(a1+mod2-a3)%mod*imag.x;
+                            u64 na2=mod2-a2;
+                            a[i+offset]=a0+a2+a1+a3;
+                            a[i+offset+p]=a0+a2+(2*mod2-(a1+a3));
+                            a[i+offset+2*p]=a0+na2+tmp;
+                            a[i+offset+3*p]=a0+na2+(mod2-tmp);
+                        }
+                        rot*=w2[0][__lg(~s&-~s)];
                     }
-                    rot*=w2[0][__lg(~s&-~s)];
+                    len+=2;
                 }
-                len+=2;
             }
         }
-        
-        for(int i=1,j=0; i<(1<<k); ++i){
-            for(int t=1<<(k-1); (j^=t)<t; t>>=1);
-            if(i<j) swap(a[i],a[j]);
-        }
-        
-        if(inv){
-            reverse(a.begin()+1,a.end());
+        else{
+            int len=k;
+            while(len){
+                if(len==1){
+                    len--;
+                    int p=1<<(k-len-1);
+                    mint rot=1;
+                    for(int s=0; s<(1<<len); ++s){
+                        int offset=s<<(k-len);
+                        for(int i=0; i<p; ++i){
+                            u64 l=a[i+offset].x,r=a[i+offset+p].x;
+                            a[i+offset]=l+r,a[i+offset+p]=(mod+l-r)*rot.x;
+                        }
+                        rot*=w1[1][__lg(~s&-~s)];
+                    }
+                }
+                else{
+                    len-=2;
+                    int p=1<<(k-len-2);
+                    mint rot=1,imag=w[1][2];
+                    for(int s=0; s<(1<<len); ++s){
+                        mint rot2=rot*rot,rot3=rot2*rot;
+                        int offset=s<<(k-len);
+                        for(int i=0; i<p; ++i){
+                            u64 a0=a[i+offset].x,a1=a[i+offset+p].x,a2=a[i+offset+2*p].x,a3=a[i+offset+3*p].x;
+                            u64 tmp=(mod+a2-a3)*imag.x%mod;
+                            a[i+offset]=a0+a1+a2+a3;
+                            a[i+offset+p]=(a0+mod-a1+tmp)*rot.x;
+                            a[i+offset+2*p]=(a0+a1+(2*mod-(a2+a3)))*rot2.x;
+                            a[i+offset+3*p]=(a0+2*mod-a1-tmp)*rot3.x;
+                        }
+                        rot*=w2[1][__lg(~s&-~s)];
+                    }
+                }
+            }
             mint inv=mint(n).inv();
             for(int i=0; i<n; ++i) a[i]*=inv;
         }
