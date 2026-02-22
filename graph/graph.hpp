@@ -9,6 +9,7 @@ struct edge{
 
 template<typename T=int,bool directed=false>
 struct graph{
+    using weight_type=T;
     int n,m;
     vector<edge<T>> edges,edge_list;
     vector<int> start_ptr;

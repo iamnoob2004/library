@@ -20,6 +20,16 @@ vector<mint> convolution_ntt(vector<mint> a, vector<mint> b){
     int n=((int)a.size())+((int)b.size())-1;
     int m=1,k=0;
     while(m<n) m<<=1,k++;
+    if(n>10&&n-2<=m/2){
+        mint a_last=a.back(),b_last=b.back();
+        a.pop_back(),b.pop_back();
+        vector<mint> res=convolution_ntt(a,b);
+        res.resize(n);
+        res[n-1]+=a_last*b_last;
+        for(int i=0; i<((int)a.size()); ++i) res[i+((int)b.size())]+=a[i]*b_last;
+        for(int i=0; i<((int)b.size()); ++i) res[i+((int)a.size())]+=b[i]*a_last;
+        return res;
+    }
     a.resize(m),b.resize(m);
     ntt.trans(a,k),ntt.trans(b,k);
     for(int i=0; i<m; ++i) a[i]*=b[i];

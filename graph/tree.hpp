@@ -4,6 +4,7 @@
 
 template<typename graph_type>
 struct Tree{
+    using T=typename graph_type::weight_type;
     int n,maxlog;
     graph_type g;
 
@@ -12,6 +13,10 @@ struct Tree{
 
     Tree(int _n=0){
         n=g.n=_n;
+    }
+
+    void add_edge(int u, int v, T w=T(1), int id=-1){
+        g.add_edge(u,v,w,id);
     }
     void read(bool weighted=false, int offset=1){
         g.read_tree(weighted,offset);

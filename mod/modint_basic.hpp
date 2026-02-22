@@ -6,7 +6,7 @@ mint fac(int n){
     static vector<mint> res={1,1};
     if(n>=mod) return 0;
     assert(n>=0);
-    while(n>=(int)res.size()) res.push_back(res.back()*res.size());
+    while(n>=(int)res.size()) res.push_back(res.back()*(int)res.size());
     return res[n];
 }
 
@@ -15,7 +15,7 @@ mint inv(int n){
     static const int mod=mint::get_mod();
     static vector<mint> res={0,1};
     assert(n>=0&&n<mod);
-    while(n>=(int)res.size()) res.push_back(res[mod%res.size()]*(mod-mod/res.size()));
+    while(n>=(int)res.size()) res.push_back(res[mod%res.size()]*(mod-mod/(int)res.size()));
     return res[n];
 }
 

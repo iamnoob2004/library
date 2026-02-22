@@ -14,9 +14,13 @@ struct Modint{
 
     word x;
     constexpr Modint():x(0){}
+
     constexpr Modint(int _x):x((_x%m+m)%m){}
-    constexpr Modint(int64_t _x):x((_x%m+m)%m){}
+    constexpr Modint(ll _x):x((_x%m+m)%m){}
+    constexpr Modint(__int128 _x):x((_x%m+m)%m){}
+    constexpr Modint(uint32_t _x):x(_x%m){}
     constexpr Modint(uint64_t _x):x(_x%m){}
+    constexpr Modint(unsigned __int128 _x):x(_x%m){}
 
     mint &operator += (const mint &o){
         if((x+=o.x)>=mod) x-=mod;
@@ -65,7 +69,7 @@ struct Modint{
     }
 
     friend istream& operator >> (istream& is, mint &b){
-        int64_t y;
+        ll y;
         is >> y;
         b=mint(y);
         return is;
