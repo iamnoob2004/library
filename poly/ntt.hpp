@@ -29,7 +29,7 @@ struct NTT{
         }
     }
 
-    void trans(vector<mint> &a, int k, bool inv=false){
+    void dft(vector<mint> &a, int k, bool inv=false){
         assert((int)a.size()==(1<<k));
         int n=1<<k;
         if(!inv){
@@ -107,6 +107,21 @@ struct NTT{
             }
             mint inv=mint(n).inv();
             for(int i=0; i<n; ++i) a[i]*=inv;
+        }
+    }
+
+    void transpose_dft(vector<mint> &a, int k, bool inv=false){
+        int n=1<<k;
+        if(!inv){
+            dft(a,k,1);
+            reverse(a.begin()+1,a.end());
+            for(auto &x: a) x*=n;
+        }
+        else{
+            reverse(a.begin()+1,a.end());
+            dft(a,k,0);
+            mint inv_n=mint(n).inv();
+            for(auto &x: a) x*=inv_n;
         }
     }
 };

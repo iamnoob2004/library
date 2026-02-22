@@ -31,9 +31,9 @@ vector<mint> convolution_ntt(vector<mint> a, vector<mint> b){
         return res;
     }
     a.resize(m),b.resize(m);
-    ntt.trans(a,k),ntt.trans(b,k);
+    ntt.dft(a,k),ntt.dft(b,k);
     for(int i=0; i<m; ++i) a[i]*=b[i];
-    ntt.trans(a,k,true);
+    ntt.dft(a,k,true);
     a.resize(n);
     return a;
 }
