@@ -25,6 +25,15 @@ struct dynamic_bitset{
         for(int i=0; i<m; ++i) vec[i]=~vec[i];
     }
 
+    bool operator == (const dynamic_bitset &o){
+        if(n!=o.n) return false;
+        return vec==o.vec;
+    }
+    bool operator != (const dynamic_bitset &o){
+        if(n!=o.n) return true;
+        return vec!=o.vec;
+    }
+
     dynamic_bitset operator &= (const dynamic_bitset &o){
         assert(m==o.m);
         for(int i=0; i<m; ++i) vec[i]&=o.vec[i];
