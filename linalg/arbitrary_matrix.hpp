@@ -1,5 +1,7 @@
 #pragma once
 
+#include "library/simd/matmul.hpp"
+
 template<typename T>
 struct matrix: vector<T>{
     using vector<T>::vector;
@@ -46,32 +48,25 @@ struct matrix: vector<T>{
         mat2=mat2.transpose();
         matrix res;
         res.set_hw(h,mat2.h);
-        for(int i=0; i<h; ++i) for(int j=0; j<mat2.h; ++j){
-            if(is_modint){
-                uint64_t val[4]{},mod=T::get_mod();
-                for(int k=0; k+3<w; k+=4){
-                    val[0]+=(uint64_t)(*this)[i*w+k].x*mat2[j*mat2.h+k].x;
-                    val[1]+=(uint64_t)(*this)[i*w+k+1].x*mat2[j*mat2.h+k+1].x;
-                    val[2]+=(uint64_t)(*this)[i*w+k+2].x*mat2[j*mat2.h+k+2].x;
-                    val[3]+=(uint64_t)(*this)[i*w+k+3].x*mat2[j*mat2.h+k+3].x;
-                    if(!(k&31)){
-                        val[0]%=mod;
-                        val[1]%=mod;
-                        val[2]%=mod;
-                        val[3]%=mod;
-                    }
-                }
-                for(int k=w-1; (k&3)<3; k--){
-                    val[0]+=(uint64_t)(*this)[i*w+k].x*mat2[j*mat2.h+k].x;
-                    val[0]%=mod;
-                }
-                val[0]%=mod;
-                val[1]%=mod;
-                val[2]%=mod;
-                val[3]%=mod;
-                res[i*mat2.h+j]=val[0]+val[1]+val[2]+val[3];
+        bool simd=0;
+        #ifndef i_am_noob
+        if(is_modint) simd=1;
+        #endif
+        if(simd){
+            vector<int> vec1(h*w),vec2(mat2.h*w);
+            for(int i=0; i<h*w; ++i){
+                vec1[i]=(*this)[i].x;
             }
-            else{
+            for(int i=0; i<mat2.h*w; ++i){
+                vec2[i]=mat2[i].x;
+            }
+            vector<int> vec3=matmul_mod(h,mat2.h,w,vec1,vec2,T::get_mod());
+            for(int i=0; i<h*mat2.h; ++i){
+                res[i]=vec3[i];
+            }
+        }
+        else{
+            for(int i=0; i<h; ++i) for(int j=0; j<mat2.h; ++j){
                 for(int k=0; k<w; ++k){
                     res[i*mat2.h+j]+=(*this)[i*w+k]*mat2[j*mat2.h+k];
                 }
