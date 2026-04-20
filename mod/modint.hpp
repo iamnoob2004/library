@@ -81,6 +81,9 @@ struct Modint{
     // v2(m-1), 2^(v2(m-1))-th root
     static constexpr pair<int,int> ntt_data(){
         if(m==998244353) return {23,31};
+        if(m==167772161) return {25,17};
+        if(m==469762049) return {26,30};
+        if(m==754974721) return {24,362};
         return {-1,-1};
     }
 };

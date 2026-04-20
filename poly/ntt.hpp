@@ -2,7 +2,7 @@
 
 template<typename mint>
 struct NTT{
-    static constexpr int mod=mint::get_mod(),N=mint::ntt_data().first,g=mint::ntt_data().second;
+    static constexpr int mod=mint::get_mod(),N=mint::ntt_data().first>=0?mint::ntt_data().first:1,g=mint::ntt_data().second;
 
     mint w[2][N+1],w1[2][N],w2[2][N];
     using u64=uint64_t;
