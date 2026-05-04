@@ -86,6 +86,10 @@ struct Modint{
         if(m==754974721) return {24,362};
         return {-1,-1};
     }
+
+    static constexpr bool can_ntt(){
+        return ntt_data().first>=0;
+    }
 };
 
 template<int64_t m, bool is_prime=true> using modint=Modint<m,is_prime,int32_t,int64_t>;

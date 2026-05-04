@@ -1,10 +1,9 @@
 #pragma once
 
-#include "library/poly/poly.hpp"
 #include "library/poly/transpose_convolution.hpp"
 
 template<typename mint>
-poly<mint> composition(poly<mint> f, poly<mint> g){
+vector<mint> composition(vector<mint> f, vector<mint> g){
     int _n=max<int>(f.size(),g.size());
     int n=1;
     while(n<_n) n<<=1;

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "library/poly/poly.hpp"
+#include "library/poly/fps_pow.hpp"
 #include "library/poly/power_projection.hpp"
 
 template<typename mint>
-poly<mint> compositional_inverse(poly<mint> f){
+vector<mint> compositional_inverse(vector<mint> f){
     int n=((int)f.size())-1;
     if(n==-1) return {};
     assert(f[0]==mint(0));
@@ -22,9 +22,9 @@ poly<mint> compositional_inverse(poly<mint> f){
     vector<mint> w(n+1);
     w[n]=1;
     vector<mint> val=power_projection<mint>(f,w,n);
-    poly<mint> g(n);
+    vector<mint> g(n);
     for(int i=1; i<=n; ++i) g[n-i]=val[i]*mint(n)*inv<mint>(i);
-    g=g.pow((-inv<mint>(n)).x);
+    g=fps_pow<mint>(g,(-inv<mint>(n)).x);
     g.insert(g.begin(),mint(0));
     mint pow_inv_c=1;
     for(int i=0; i<=n; ++i) g[i]*=pow_inv_c,pow_inv_c*=inv_c;
