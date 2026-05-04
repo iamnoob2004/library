@@ -1,6 +1,6 @@
 #pragma once
 
-#include "library/poly/convolution.hpp"
+#include "library/poly/middle_product.hpp"
 
 // calculate f(ar^k) for 0 <= k < m
 template<typename mint>
@@ -41,14 +41,14 @@ vector<mint> multipoint_eval_on_geom_seq(vector<mint> f, mint a, mint r, int m){
         return res;
     };
     vector<mint> vec1=calc(r.inv(),max(n,m)),vec2=calc(r,n+m);
-    vector<mint> c=f,d=vec2;
+    vector<mint> c=f;
     for(int i=0; i<n; ++i){
-        c[i]=f[n-1-i]*vec1[n-1-i];
+        c[i]=f[i]*vec1[i];
     }
-    c=convolution<mint>(c,vec2);
+    c=middle_product<mint>(vec2,c);
     vector<mint> res(m);
     for(int i=0; i<m; ++i){
-        res[i]=c[n-1+i]*vec1[i];
+        res[i]=c[i]*vec1[i];
     }
     return res;
 }

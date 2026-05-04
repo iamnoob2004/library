@@ -32,6 +32,7 @@ struct NTT{
     void dft(vector<mint> &a, int k, bool inv=false){
         assert((int)a.size()==(1<<k));
         int n=1<<k;
+        assert(k<=N);
         if(!inv){
             int len=0;
             while(len<k){
