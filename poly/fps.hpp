@@ -52,6 +52,15 @@ struct fps: vector<mint>{
         return *this;
     }
 
+    mint eval(mint x){
+        mint res,y(1);
+        for(int i=0; i<(int)this->size(); ++i){
+            res+=(*this)[i]*y;
+            y*=x;
+        }
+        return res;
+    }
+
     friend ostream& operator << (ostream& os, const fps &P){
         int n=P.size();
         for(int i=0; i<n; ++i){

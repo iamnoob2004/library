@@ -22,6 +22,10 @@ struct Tree{
         g.read_tree(weighted,offset);
     }
 
+    vector<edge<T>> get_adj(int u){
+        return g.get_adj(u);
+    }
+
     bool gen_anc; // maxlog, anc
     bool gen_hld; // ch, head
     int rt;
