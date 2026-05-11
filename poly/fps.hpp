@@ -6,6 +6,7 @@
 template<typename mint>
 struct fps: vector<mint>{
     using vector<mint>::vector;
+    using value_type=mint;
 
     fps(const vector<mint> &v):vector<mint>(v){}
 

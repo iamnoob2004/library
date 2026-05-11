@@ -68,7 +68,7 @@ struct matrix: vector<T>{
         else{
             for(int i=0; i<h; ++i) for(int j=0; j<mat2.h; ++j){
                 for(int k=0; k<w; ++k){
-                    res[i*mat2.h+j]+=(*this)[i*w+k]*mat2[j*mat2.h+k];
+                    res[i*mat2.h+j]+=(*this)[i*w+k]*mat2[j*w+k];
                 }
             }
         }

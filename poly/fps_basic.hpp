@@ -20,6 +20,15 @@ vector<mint> integral(vector<mint> a){
 }
 
 template<typename mint>
+vector<mint> dot(vector<mint> a, vector<mint> b){
+    int n=a.size();
+    assert(n==(int)b.size());
+    vector<mint> res(n);
+    for(int i=0; i<n; ++i) res[i]=a[i]*b[i];
+    return res;
+}
+
+template<typename mint>
 int nonzero_count(vector<mint> a){
     int res=0;
     for(int i=0; i<(int)a.size(); ++i) res+=(a[i]!=mint(0));
