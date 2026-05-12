@@ -76,6 +76,12 @@ array<vector<mint>,3> poly_extgcd(vector<mint> a, vector<mint> b){
     return {g,M[0],M[1]};
 }
 
+template<typename mint>
+vector<mint> poly_gcd(vector<mint> a, vector<mint> b){
+    return poly_extgcd<mint>(a,b)[0];
+}
+
 }// namespace half_gcd
 
 using half_gcd::poly_extgcd;
+using half_gcd::poly_gcd;

@@ -61,12 +61,10 @@ struct Modint{
         return inv2();
     }
 
-    bool operator == (const mint &o) const {
-        return x==o.x;
-    }
-    bool operator != (const mint &o) const {
-        return x!=o.x;
-    }
+    bool operator == (const mint &o) const {return x==o.x;}
+    bool operator != (const mint &o) const {return x!=o.x;}
+    bool operator < (const mint &o) const {return x<o.x;}
+    bool operator > (const mint &o) const {return x>o.x;}
 
     friend istream& operator >> (istream& is, mint &b){
         ll y;
