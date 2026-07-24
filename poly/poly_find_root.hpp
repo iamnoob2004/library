@@ -1,8 +1,8 @@
 #pragma once
 
-#include "library/poly/poly_mod_pow.hpp"
-#include "library/poly/poly_gcd.hpp"
-#include "library/random/basic.hpp"
+#include "poly/poly_mod_pow.hpp"
+#include "poly/poly_gcd.hpp"
+#include "random/basic.hpp"
 
 // find distinct roots
 template<typename mint>

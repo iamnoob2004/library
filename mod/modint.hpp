@@ -1,6 +1,6 @@
 #pragma once
 
-#include "library/nt/extgcd.hpp"
+#include "nt/extgcd.hpp"
 
 template<int64_t m, bool is_prime, typename word, typename dword>
 struct Modint{

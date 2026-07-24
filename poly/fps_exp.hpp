@@ -1,9 +1,9 @@
 #pragma once
 
-#include "library/poly/convolution.hpp"
-#include "library/mod/modint_basic.hpp"
-#include "library/poly/fps_basic.hpp"
-#include "library/poly/fps_log.hpp"
+#include "poly/convolution.hpp"
+#include "mod/modint_basic.hpp"
+#include "poly/fps_basic.hpp"
+#include "poly/fps_log.hpp"
 
 template<typename mint>
 vector<mint> fps_exp_dense(vector<mint> a){

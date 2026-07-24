@@ -1,6 +1,6 @@
 #pragma once
 
-#include "library/poly/fps.hpp"
+#include "poly/fps.hpp"
 
 template<typename T>
 T bostan_mori(fps<T> P, fps<T> Q, ll k){

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "library/mod/modint_basic.hpp"
+#include "mod/modint_basic.hpp"
 
 template<typename mint>
 vector<mint> derivative(vector<mint> a){

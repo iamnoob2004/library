@@ -1,6 +1,6 @@
 #pragma once
 
-#include "library/nt/binary_gcd.hpp"
+#include "nt/binary_gcd.hpp"
 
 template<typename T>
 struct frac{

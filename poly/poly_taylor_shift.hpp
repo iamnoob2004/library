@@ -1,8 +1,8 @@
 #pragma once
 
-#include "library/mod/modint_basic.hpp"
-#include "library/mod/pow_table.hpp"
-#include "library/poly/middle_product.hpp"
+#include "mod/modint_basic.hpp"
+#include "mod/pow_table.hpp"
+#include "poly/middle_product.hpp"
 
 // f(x) -> f(x+c)
 template<typename mint>

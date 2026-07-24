@@ -1,10 +1,10 @@
 #pragma once
 
-#include "library/poly/convolution.hpp"
-#include "library/mod/modint_basic.hpp"
-#include "library/poly/fps_basic.hpp"
-#include "library/poly/fps_log.hpp"
-#include "library/poly/fps_exp.hpp"
+#include "poly/convolution.hpp"
+#include "mod/modint_basic.hpp"
+#include "poly/fps_basic.hpp"
+#include "poly/fps_log.hpp"
+#include "poly/fps_exp.hpp"
 
 // const term = 1: fps_pow_1
 

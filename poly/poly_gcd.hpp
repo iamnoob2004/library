@@ -1,7 +1,7 @@
 #pragma once
 
-#include "library/poly/matrix_poly.hpp"
-#include "library/poly/poly_div.hpp"
+#include "poly/matrix_poly.hpp"
+#include "poly/poly_div.hpp"
 
 namespace half_gcd{
 

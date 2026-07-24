@@ -1,6 +1,6 @@
 #pragma once
 
-#include "library/graph/graph.hpp"
+#include "graph/graph.hpp"
 
 // undirected only
 // return component id for each vertex

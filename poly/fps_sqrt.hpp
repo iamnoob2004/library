@@ -1,10 +1,10 @@
 #pragma once
 
-#include "library/poly/convolution.hpp"
-#include "library/mod/modint_basic.hpp"
-#include "library/poly/fps_basic.hpp"
-#include "library/poly/fps_pow.hpp"
-#include "library/nt/sqrt_mod.hpp"
+#include "poly/convolution.hpp"
+#include "mod/modint_basic.hpp"
+#include "poly/fps_basic.hpp"
+#include "poly/fps_pow.hpp"
+#include "nt/sqrt_mod.hpp"
 
 // const term = 1: fps_sqrt_1
 

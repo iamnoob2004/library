@@ -1,6 +1,6 @@
 #pragma once
 
-#include "library/linalg/arbitrary_matrix.hpp"
+#include "linalg/arbitrary_matrix.hpp"
 
 template<typename T>
 matrix<T> solve_equation(vector<matrix<mint>> a){

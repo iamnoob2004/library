@@ -1,6 +1,6 @@
 #pragma once
 
-#include "library/nt/extgcd.hpp"
+#include "nt/extgcd.hpp"
 
 template<int id>
 struct barrett_modint{

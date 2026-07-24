@@ -1,7 +1,7 @@
 #pragma once
 
-#include "library/mod/all_inverse.hpp"
-#include "library/poly/middle_product.hpp"
+#include "mod/all_inverse.hpp"
+#include "poly/middle_product.hpp"
 
 // calculate f(ar^k) for 0 <= k < m
 template<typename mint>

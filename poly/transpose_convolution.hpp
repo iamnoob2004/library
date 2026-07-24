@@ -1,6 +1,6 @@
 #pragma once
 
-#include "library/poly/ntt.hpp"
+#include "poly/ntt.hpp"
 
 template<typename mint>
 vector<mint> transpose_convolution_naive(vector<mint> a, vector<mint> b){

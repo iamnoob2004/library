@@ -1,6 +1,6 @@
 #pragma once
 
-#include "library/algebra/monoid/add.hpp"
+#include "algebra/monoid/add.hpp"
 
 // abelian group
 template<typename group>

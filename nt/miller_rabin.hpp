@@ -1,6 +1,6 @@
 #pragma once
 
-#include "library/mod/montgomery_modint.hpp"
+#include "mod/montgomery_modint.hpp"
 
 // https://judge.yosupo.jp/problem/primality_test
 bool is_prime(ll x){

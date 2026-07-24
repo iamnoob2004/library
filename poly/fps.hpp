@@ -1,7 +1,7 @@
 #pragma once
 
-#include "library/mod/modint_basic.hpp"
-#include "library/poly/convolution.hpp"
+#include "mod/modint_basic.hpp"
+#include "poly/convolution.hpp"
 
 template<typename mint>
 struct fps: vector<mint>{

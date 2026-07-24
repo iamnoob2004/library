@@ -102,19 +102,3 @@ template<typename T> vector<T> operator += (vector<T> &a, int val){for(auto &i: 
 template<typename T> T isqrt(const T &x){T y=sqrt(x+2); while(y*y>x) y--; return y;}
 
 #define ykh mt19937 rng(chrono::steady_clock::now().time_since_epoch().count())
-
-//#include "mod/modint.hpp"
-//using mint=modint<998244353>;
-//using mint=modint<1000000007>;
-
-void mango(){
-    
-}
-
-signed main(){
-    ios_base::sync_with_stdio(0),cin.tie(0);
-    cout << fixed << setprecision(20);
-    int t=1;
-    //cin >> t;
-    while(t--) mango();
-}

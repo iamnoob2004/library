@@ -1,9 +1,9 @@
 #pragma once
 
-#include "library/algebra/monoid/mul.hpp"
-#include "library/ds/sliding_window_aggregation.hpp"
-#include "library/mod/modint_basic.hpp"
-#include "library/poly/middle_product.hpp"
+#include "algebra/monoid/mul.hpp"
+#include "ds/sliding_window_aggregation.hpp"
+#include "mod/modint_basic.hpp"
+#include "poly/middle_product.hpp"
 
 // given f(0),f(1),...,f(n-1) with deg <= n-1, return f(c)
 template<typename mint>

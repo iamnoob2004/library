@@ -1,6 +1,6 @@
 #pragma once
 
-#include "library/atcoder/internal_bit.hpp"
+#include "atcoder/internal_bit.hpp"
 
 template <class S,
           S (*op)(S, S),

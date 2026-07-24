@@ -1,6 +1,6 @@
 #pragma once
 
-#include "library/poly/fps_inv.hpp"
+#include "poly/fps_inv.hpp"
 
 template<typename mint>
 pair<vector<mint>,vector<mint>> poly_div(vector<mint> a, vector<mint> b){

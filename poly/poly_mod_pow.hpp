@@ -1,6 +1,6 @@
 #pragma once
 
-#include "library/poly/poly_div.hpp"
+#include "poly/poly_div.hpp"
 
 template<typename mint>
 vector<mint> poly_mod_pow(vector<mint> a, ll n, vector<mint> b){

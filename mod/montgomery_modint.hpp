@@ -1,6 +1,6 @@
 #pragma once
 
-#include "library/nt/extgcd.hpp"
+#include "nt/extgcd.hpp"
 
 // arbitrary modint, odd mod
 // stores x*(2^K) mod m

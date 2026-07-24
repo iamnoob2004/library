@@ -1,7 +1,7 @@
 #pragma once
 
-#include "library/nt/binary_gcd.hpp"
-#include "library/nt/extgcd.hpp"
+#include "nt/binary_gcd.hpp"
+#include "nt/extgcd.hpp"
 
 pair<ll,ll> CRT(ll x1, ll m1, ll x2, ll m2){
     auto [g,val1,val2]=extgcd<ll>(m1,m2);

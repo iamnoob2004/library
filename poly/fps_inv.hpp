@@ -1,7 +1,7 @@
 #pragma once
 
-#include "library/poly/convolution.hpp"
-#include "library/poly/fps_basic.hpp"
+#include "poly/convolution.hpp"
+#include "poly/fps_basic.hpp"
 
 template<typename mint>
 vector<mint> fps_inv_dense(vector<mint> a){

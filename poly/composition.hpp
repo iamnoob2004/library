@@ -1,6 +1,6 @@
 #pragma once
 
-#include "library/poly/transpose_convolution.hpp"
+#include "poly/transpose_convolution.hpp"
 
 template<typename mint>
 vector<mint> composition(vector<mint> f, vector<mint> g){

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "library/poly/fps_inv.hpp"
-#include "library/poly/middle_product.hpp"
+#include "poly/fps_inv.hpp"
+#include "poly/middle_product.hpp"
 
 template<typename mint>
 struct subproduct_tree{

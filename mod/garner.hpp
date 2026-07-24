@@ -1,6 +1,6 @@
 #pragma once
 
-#include "library/nt/extgcd.hpp"
+#include "nt/extgcd.hpp"
 
 template<typename mint>
 mint garner3(vector<ll> x, vector<ll> m){

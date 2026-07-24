@@ -1,7 +1,7 @@
 #pragma once
 
-#include "library/poly/fps.hpp"
-#include "library/poly/fps_basic.hpp"
+#include "poly/fps.hpp"
+#include "poly/fps_basic.hpp"
 
 template<typename fps>
 struct matrix_poly: vector<fps>{

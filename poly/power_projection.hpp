@@ -1,7 +1,7 @@
 #pragma once
 
-#include "library/mod/modint_basic.hpp"
-#include "library/poly/convolution.hpp"
+#include "mod/modint_basic.hpp"
+#include "poly/convolution.hpp"
 
 // sum_j w_j[x^j]f^i for i=0,1,...,m
 template<typename mint>

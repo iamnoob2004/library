@@ -1,6 +1,7 @@
 #pragma once
 
-#include "library/nt/array_of_floor.hpp"
+#include "nt/basic.hpp"
+#include "nt/array_of_floor.hpp"
 
 template<typename T>
 struct dirichlet{
@@ -100,4 +101,23 @@ dirichlet<T> dirichlet_identity(ll n){
     dirichlet<T> res(n);
     for(int i=1; i<res.m; ++i) res.val[i]=T(1);
     return res;
+}
+
+template<typename T>
+dirichlet<T> dirichlet_one(ll n){
+    dirichlet<T> res(n);
+    for(int i=1; i<res.m; ++i) res.val[i]=T(res.arr[i]);
+    return res;
+}
+
+template<typename T>
+dirichlet<T> dirichlet_n(ll n){
+    dirichlet<T> res(n);
+    for(int i=1; i<res.m; ++i) res.val[i]=sum_of_power_small<T>(res.arr[i],2);
+    return res;
+}
+
+template<typename T>
+dirichlet<T> dirichlet_phi(ll n){
+    return dirichlet_n<T>(n)/dirichlet_one<T>(n);
 }

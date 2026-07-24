@@ -1,7 +1,7 @@
 #pragma once
 
-#include "library/nt/binary_gcd.hpp"
-#include "library/nt/miller_rabin.hpp"
+#include "nt/binary_gcd.hpp"
+#include "nt/miller_rabin.hpp"
 
 // https://judge.yosupo.jp/problem/factorize
 struct pollard_rho{

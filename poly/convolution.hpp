@@ -1,8 +1,8 @@
 #pragma once
 
-#include "library/mod/modint.hpp"
-#include "library/poly/ntt.hpp"
-#include "library/mod/garner.hpp"
+#include "mod/modint.hpp"
+#include "poly/ntt.hpp"
+#include "mod/garner.hpp"
 
 template<typename mint>
 vector<mint> convolution_naive(vector<mint> a, vector<mint> b){

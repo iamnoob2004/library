@@ -1,6 +1,6 @@
 #pragma once
 
-#include "library/simd/matmul.hpp"
+#include "simd/matmul.hpp"
 
 template<typename T>
 struct matrix: vector<T>{

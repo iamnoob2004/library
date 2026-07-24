@@ -1,6 +1,6 @@
 #pragma once
 
-#include "library/simd/dot_product_mod.hpp"
+#include "simd/dot_product_mod.hpp"
 
 #ifndef i_am_noob
 

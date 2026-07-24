@@ -1,6 +1,6 @@
 #pragma once
 
-#include "library/graph/graph.hpp"
+#include "graph/graph.hpp"
 
 template<typename graph_type>
 pair<vector<int>,vector<int>> bipartite_check(graph_type &g){

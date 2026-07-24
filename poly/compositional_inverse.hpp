@@ -1,7 +1,7 @@
 #pragma once
 
-#include "library/poly/fps_pow.hpp"
-#include "library/poly/power_projection.hpp"
+#include "poly/fps_pow.hpp"
+#include "poly/power_projection.hpp"
 
 template<typename mint>
 vector<mint> compositional_inverse(vector<mint> f){

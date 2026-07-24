@@ -1,6 +1,6 @@
 #pragma once
 
-#include "library/ds/dynamic_bitset.hpp"
+#include "ds/dynamic_bitset.hpp"
 
 int bitset_lcs(vector<int> a, vector<int> b, int mx){
     mx++;

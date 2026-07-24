@@ -1,8 +1,8 @@
 #pragma once
 
-#include "library/mod/modint.hpp"
-#include "library/poly/ntt.hpp"
-#include "library/mod/garner.hpp"
+#include "mod/modint.hpp"
+#include "poly/ntt.hpp"
+#include "mod/garner.hpp"
 
 // n,m = a.size(),b.size() (n >= m)
 // res_i = \sum_j a_{j+i}b_j
