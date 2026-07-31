@@ -3,6 +3,7 @@
 template<typename T>
 struct monoid_add{
     using value_type=T;
+    using S=value_type;
 
     static constexpr T op(const T &a, const T &b) {return a+b;}
     static constexpr T id(){return T(0);}
