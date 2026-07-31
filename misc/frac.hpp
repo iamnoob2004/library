@@ -19,6 +19,11 @@ struct frac{
     frac(T x, T y):p(x),q(y){
         if(q<0) p=-p,q=-q;
     }
+
+    frac operator +=(const frac &o) {return p=p*o.q+q*o.p,q=q*o.q,*this;}
+    frac operator -=(const frac &o) {return p=p*o.q-q*o.p,q=q*o.q,*this;}
+    frac operator *=(const frac &o) {return p=p*o.p,q=q*o.q,*this;}
+
     frac operator +(const frac &o) const {return frac(p*o.q+q*o.p,q*o.q);}
     frac operator -(const frac &o) const {return frac(p*o.q-q*o.p,q*o.q);}
     frac operator *(const frac &o) const {return frac(p*o.p,q*o.q);}

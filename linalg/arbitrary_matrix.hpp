@@ -1,12 +1,9 @@
 #pragma once
 
-#include "simd/matmul.hpp"
-
 template<typename T>
 struct matrix: vector<T>{
     using vector<T>::vector;
 
-    inline static bool is_modint=false;
     int h,w;
 
     matrix(){
@@ -16,7 +13,7 @@ struct matrix: vector<T>{
     void set_hw(int _h, int _w){
         h=_h,w=_w;
         this->resize(h*w);
-        for(int i=0; i<h*w; ++i) (*this)[i]=0;
+        for(int i=0; i<h*w; ++i) (*this)[i]=T();
     }
     static matrix id(int n){
         matrix res;
@@ -48,28 +45,9 @@ struct matrix: vector<T>{
         mat2=mat2.transpose();
         matrix res;
         res.set_hw(h,mat2.h);
-        bool simd=0;
-        #ifndef i_am_noob
-        if(is_modint) simd=1;
-        #endif
-        if(simd){
-            vector<int> vec1(h*w),vec2(mat2.h*w);
-            for(int i=0; i<h*w; ++i){
-                vec1[i]=(*this)[i].x;
-            }
-            for(int i=0; i<mat2.h*w; ++i){
-                vec2[i]=mat2[i].x;
-            }
-            vector<int> vec3=matmul_mod(h,mat2.h,w,vec1,vec2,T::get_mod());
-            for(int i=0; i<h*mat2.h; ++i){
-                res[i]=vec3[i];
-            }
-        }
-        else{
-            for(int i=0; i<h; ++i) for(int j=0; j<mat2.h; ++j){
-                for(int k=0; k<w; ++k){
-                    res[i*mat2.h+j]+=(*this)[i*w+k]*mat2[j*w+k];
-                }
+        for(int i=0; i<h; ++i) for(int j=0; j<mat2.h; ++j){
+            for(int k=0; k<w; ++k){
+                res[i*mat2.h+j]+=(*this)[i*w+k]*mat2[j*w+k];
             }
         }
         *this=res;
