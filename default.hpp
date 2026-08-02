@@ -19,6 +19,7 @@
 #include <vector>
 #include <array>
 #include <cstdint>
+#include <bitset>
 
 using namespace std;
 
