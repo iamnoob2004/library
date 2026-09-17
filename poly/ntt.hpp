@@ -2,30 +2,35 @@
 
 template<typename mint>
 struct NTT{
-    static constexpr int mod=mint::get_mod(),N=mint::ntt_data().first>=0?mint::ntt_data().first:1,g=mint::ntt_data().second;
+    inline static int mod,N,g;
 
-    mint w[2][N+1],w1[2][N],w2[2][N];
+    mint w[2][33],w1[2][33],w2[2][33];
     using u64=uint64_t;
 
     NTT(){
-        w[0][N]=g,w[1][N]=w[0][N].inv();
-        for(int i=N-1; i>=0; --i){
-            w[0][i]=w[0][i+1]*w[0][i+1];
-            w[1][i]=w[1][i+1]*w[1][i+1];
-        }
-        mint prod=1,iprod=1;
-        for(int i=0; i<N-1; ++i){
-            w1[0][i]=w[0][i+2]*prod;
-            w1[1][i]=w[1][i+2]*iprod;
-            prod*=w[1][i+2];
-            iprod*=w[0][i+2];
-        }
-        prod=iprod=1;
-        for(int i=0; i<N-2; ++i){
-            w2[0][i]=w[0][i+3]*prod;
-            w2[1][i]=w[1][i+3]*iprod;
-            prod*=w[1][i+3];
-            iprod*=w[0][i+3];
+        mod=mint::get_mod();
+        N=mint::ntt_data().first;
+        g=mint::ntt_data().second;
+        if(mint::can_ntt()){
+            w[0][N]=g,w[1][N]=w[0][N].inv();
+            for(int i=N-1; i>=0; --i){
+                w[0][i]=w[0][i+1]*w[0][i+1];
+                w[1][i]=w[1][i+1]*w[1][i+1];
+            }
+            mint prod=1,iprod=1;
+            for(int i=0; i<N-1; ++i){
+                w1[0][i]=w[0][i+2]*prod;
+                w1[1][i]=w[1][i+2]*iprod;
+                prod*=w[1][i+2];
+                iprod*=w[0][i+2];
+            }
+            prod=iprod=1;
+            for(int i=0; i<N-2; ++i){
+                w2[0][i]=w[0][i+3]*prod;
+                w2[1][i]=w[1][i+3]*iprod;
+                prod*=w[1][i+3];
+                iprod*=w[0][i+3];
+            }
         }
     }
 

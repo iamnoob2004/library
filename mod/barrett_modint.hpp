@@ -92,6 +92,7 @@ struct barrett_modint{
     static constexpr pair<int,int> ntt_data(){
         return {-1,-1};
     }
+    static constexpr bool can_ntt(){
+        return false;
+    }
 };
-
-template<int id> using modint=barrett_modint<id>;

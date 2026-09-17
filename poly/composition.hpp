@@ -3,7 +3,46 @@
 #include "poly/transpose_convolution.hpp"
 
 template<typename mint>
-vector<mint> composition(vector<mint> f, vector<mint> g){
+vector<mint> composition_small(vector<mint> f, vector<mint> g){
+    int n=max<int>(f.size(),g.size());
+    if(f.empty()){
+        return vector<mint>(n,0);
+    }
+    int k=2;
+    while(k*k<n) k++;
+    vector<vector<mint>> vec1(k+1),vec2(k);
+    vec1[0]={1};
+    for(int i=1; i<=k; ++i){
+        vec1[i]=convolution<mint>(vec1[i-1],g);
+        if((int)vec1[i].size()>n) vec1[i].resize(n);
+    }
+    vec2[0]={1},vec2[1]=vec1[k];
+    for(int i=2; i<k; ++i){
+        vec2[i]=convolution<mint>(vec2[i-1],vec2[1]);
+        if((int)vec2[i].size()>n) vec2[i].resize(n);
+    }
+    vector<vector<mint>> vec3(k);
+    for(int i=0; i<k; ++i){
+        vec3[i].resize(n);
+        for(int j=0; j<k; ++j){
+            if(i*k+j>=(int)f.size()) break;
+            mint w=f[i*k+j];
+            for(int t=0; t<(int)vec1[j].size(); ++t){
+                vec3[i][t]+=w*vec1[j][t];
+            }
+        }
+    }
+    vector<mint> res(n);
+    for(int i=0; i<k; ++i){
+        vector<mint> tmp=convolution<mint>(vec3[i],vec2[i]);
+        tmp.resize(n);
+        for(int j=0; j<n; ++j) res[j]+=tmp[j];
+    }
+    return res;
+}
+
+template<typename mint>
+vector<mint> composition_big(vector<mint> f, vector<mint> g){
     int _n=max<int>(f.size(),g.size());
     int n=1;
     while(n<_n) n<<=1;
@@ -49,4 +88,11 @@ vector<mint> composition(vector<mint> f, vector<mint> g){
     reverse(all(res));
     res.resize(_n);
     return res;
+}
+
+template<typename mint>
+vector<mint> composition(vector<mint> f, vector<mint> g){
+    int n=max<int>(f.size(),g.size());
+    if(n<=1000) return composition_small<mint>(f,g);
+    return composition_big<mint>(f,g);
 }

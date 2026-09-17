@@ -16,6 +16,27 @@ vector<mint> convolution_naive(vector<mint> a, vector<mint> b){
 }
 
 template<typename mint>
+vector<mint> convolution_karatsuba(vector<mint> a, vector<mint> b){
+    if(min(a.size(),b.size())<=30) return convolution_naive<mint>(a,b);
+    int n=max(a.size(),b.size()),m=(n+1)/2;
+    vector<mint> a1,a2,b1,b2;
+    if((int)a.size()<m) a1=a;
+    else a1={a.begin(),a.begin()+m},a2={a.begin()+m,a.end()};
+    if((int)b.size()<m) b1=a;
+    else b1={b.begin(),b.begin()+m},b2={b.begin()+m,b.end()};
+    vector<mint> vec1=convolution_karatsuba(a1,b1);
+    vector<mint> vec2=convolution_karatsuba(a2,b2);
+    for(int i=0; i<(int)a2.size(); ++i) a1[i]+=a2[i];
+    for(int i=0; i<(int)b2.size(); ++i) b1[i]+=b2[i];
+    vector<mint> vec3=convolution_karatsuba(a1,b1);
+    vector<mint> res((int)a.size()+(int)b.size()-1);
+    for(int i=0; i<(int)vec1.size(); ++i) res[i]+=vec1[i],vec3[i]-=vec1[i];
+    for(int i=0; i<(int)vec2.size(); ++i) res[2*m+i]+=vec2[i],vec3[i]-=vec2[i];
+    for(int i=0; i<(int)vec3.size(); ++i) res[m+i]+=vec3[i];
+    return res;
+}
+
+template<typename mint>
 vector<mint> convolution_ntt(vector<mint> a, vector<mint> b){
     if(mint::ntt_data().first<0) return {};
     if(a.empty()||b.empty()) return {};
@@ -69,10 +90,10 @@ vector<mint> convolution(vector<mint> a, vector<mint> b){
     if(a.empty()||b.empty()) return {};
     int n=((int)a.size())+((int)b.size())-1;
     if(min((int)a.size(),(int)b.size())<=5) return convolution_naive(a,b);
-    if(mint::ntt_data().first>=0){
-        if(n<49) return convolution_naive(a,b);
+    if(mint::can_ntt()){
+        if(n<49) return convolution_karatsuba(a,b);
         return convolution_ntt(a,b);
     }
-    if(n<333) return convolution_naive(a,b);
+    if(n<555) return convolution_karatsuba(a,b);
     return convolution_garner(a,b);
 }
