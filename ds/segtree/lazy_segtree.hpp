@@ -80,6 +80,70 @@ struct lazy_segtree{
 
     S all_prod(){return tree[1];}
 
+    // ACL style binary search on tree
+
+    // Largest r in [l,n] for which g(prod(l,r)) is true.
+    // Requires g(monoid_S::id()) and that g stays false once it becomes false.
+    template<class G>
+    int max_right(int l, G g){
+        assert(0<=l && l<=n);
+        assert(g(monoid_S::id()));
+        if(l==n) return n;
+
+        l+=m;
+        for(int i=log; i>=1; --i) push(l>>i);
+
+        S res=monoid_S::id();
+        do{
+            while((l&1)==0) l>>=1;
+            if(!g(monoid_S::op(res,tree[l]))){
+                while(l<m){
+                    push(l);
+                    l<<=1;
+                    if(g(monoid_S::op(res,tree[l]))){
+                        res=monoid_S::op(res,tree[l]);
+                        l++;
+                    }
+                }
+                return l-m;
+            }
+            res=monoid_S::op(res,tree[l]);
+            l++;
+        }while((l&-l)!=l);
+        return n;
+    }
+
+    // Smallest l in [0,r] for which g(prod(l,r)) is true.
+    // Requires g(monoid_S::id()) and that g stays false once it becomes false.
+    template<class G>
+    int min_left(int r, G g){
+        assert(0<=r && r<=n);
+        assert(g(monoid_S::id()));
+        if(r==0) return 0;
+
+        r+=m;
+        for(int i=log; i>=1; --i) push((r-1)>>i);
+
+        S res=monoid_S::id();
+        do{
+            r--;
+            while(r>1 && (r&1)) r>>=1;
+            if(!g(monoid_S::op(tree[r],res))){
+                while(r<m){
+                    push(r);
+                    r=r*2+1;
+                    if(g(monoid_S::op(tree[r],res))){
+                        res=monoid_S::op(tree[r],res);
+                        r--;
+                    }
+                }
+                return r+1-m;
+            }
+            res=monoid_S::op(tree[r],res);
+        }while((r&-r)!=r);
+        return 0;
+    }
+
     void apply(int p, F f){
         p+=m;
         for(int i=log; i>=1; --i) push(p>>i);

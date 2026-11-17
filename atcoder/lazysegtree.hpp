@@ -1,6 +1,12 @@
-#pragma once
+#ifndef ATCODER_LAZYSEGTREE_HPP
+#define ATCODER_LAZYSEGTREE_HPP 1
 
-#include "atcoder/internal_bit.hpp"
+#include <algorithm>
+#include <atcoder/internal_bit>
+#include <cassert>
+#include <iostream>
+#include <vector>
+namespace atcoder {
 
 template <class S,
           S (*op)(S, S),
@@ -175,3 +181,7 @@ struct lazy_segtree {
         lz[k] = id();
     }
 };
+
+}  // namespace atcoder
+
+#endif  // ATCODER_LAZYSEGTREE_HPP

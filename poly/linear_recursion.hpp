@@ -2,8 +2,8 @@
 
 #include "poly/fps.hpp"
 
-template<typename T>
-T bostan_mori(fps<T> P, fps<T> Q, ll k){
+template<typename T, typename S>
+T bostan_mori(fps<T> P, fps<T> Q, S k){
     // [x^k] a/b
     for(; k; k>>=1){
         fps<T> Q_neg=Q;
@@ -19,7 +19,7 @@ T bostan_mori(fps<T> P, fps<T> Q, ll k){
         for(int i=0; i<(int)Q.size(); i+=2){
             nw_Q.push_back(Q[i]);
         }
-        for(int i=k&1; i<(int)P.size(); i+=2){
+        for(int i=int(k&S(1)); i<(int)P.size(); i+=2){
             nw_P.push_back(P[i]);
         }
         P=nw_P,Q=nw_Q;
@@ -42,12 +42,12 @@ pair<fps<T>,fps<T>> get_genfunc(vector<T> a, vector<T> b){
     return {P,Q};
 }
 
-template<typename T>
-T linear_recursion_kth(vector<T> a, vector<T> b, ll k){
+template<typename T, typename S>
+T linear_recursion_kth(vector<T> a, vector<T> b, S k){
     int n=a.size();
     assert(a.size()==b.size());
-    if(k<0) return 0;
-    if(k<n) return a[k];
+    if(k<S(0)) return 0;
+    if(k<S(n)) return a[(int)k];
     auto [P,Q]=get_genfunc(a,b);
     // a = P/Q
     return bostan_mori(P,Q,k);
