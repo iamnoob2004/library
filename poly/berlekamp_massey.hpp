@@ -3,6 +3,7 @@
 // s = {1,1,2,3,5,8,13} -> returns {1,1}
 template<typename T>
 vector<T> berlekamp_massey(const vector<T> &s) {
+    if(s.empty()) return {};
     int n=s.size(),l=0,m=1;
     vector<T> b(n),c(n);
     T ld=b[0]=c[0]=T(1);
